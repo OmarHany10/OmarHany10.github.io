@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omar Hany — Software Engineer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0a0e1a;--card:#111827;--line:#1f2937;--txt:#e5e7eb;--mut:#9ca3af;--acc:#38bdf8;--acc2:#818cf8}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;margin:0}
+.grad{background:linear-gradient(90deg,var(--acc),var(--acc2),var(--acc));background-size:200% auto;animation:shine 5s linear infinite;-webkit-background-clip:text;background-clip:text;color:transparent}
+.glow{background:radial-gradient(600px circle at 20% 0%,rgba(56,189,248,.15),transparent 60%),radial-gradient(500px circle at 90% 20%,rgba(129,140,248,.14),transparent 60%)}
+.card{background:var(--card);border:1px solid var(--line);transition:transform .25s,border-color .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 12px 30px -12px rgba(56,189,248,.35)}
+.flag{border-color:rgba(129,140,248,.5);background:linear-gradient(160deg,#131b33,var(--card))}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal>.card{height:100%}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.25;animation:float 9s ease-in-out infinite;pointer-events:none}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.15)}}
+.rise{opacity:0;animation:rise .8s ease forwards}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.caret{border-right:2px solid var(--acc);animation:blink 1s steps(1) infinite;padding-right:3px}
+@keyframes blink{50%{border-color:transparent}}
+.pulse-dot{animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.6)}70%{box-shadow:0 0 0 8px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+.shine{background-size:200% auto;animation:shine 4s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.rise{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+const RESUME_URL = "https://drive.google.com/file/d/1rKenAtgXru_41wePGb5kI7cHs9KWPzIV/view?usp=sharing";
+
+const backend=["C#","ASP.NET Core","RESTful APIs","Entity Framework Core","LINQ"];
+const frontend=["HTML5/CSS3","JavaScript","Angular","Bootstrap","Tailwind CSS","jQuery"];
+const dbs=["SQL Server","PostgreSQL (Marten DB)","Redis","SQLite"];
+const langs=["C#","C++","SQL","JavaScript","HTML5/CSS3"];
+const cs=["Data Structures","Algorithms","OOP","Problem Solving","Competitive Programming"];
+const tools=["Docker","Docker Compose","Git/GitHub","Postman"];
+const familiar=["Microservices Concepts","Clean Architecture","Domain-Driven Design (DDD)","Event-Driven Architecture","CQRS (MediatR)","Minimal APIs (Carter)","gRPC","SignalR","Hangfire","RabbitMQ (MassTransit)","Redis Distributed Cache","YARP API Gateway","FluentValidation & Serilog","Semantic Kernel","RAG & Qdrant Vector DB","Gemini AI"];
+const GH="https://github.com/OmarHany10/";
+const flagship=[
+ {n:"E-Shop Microservices System",g:"E-Shop-Microservice-",d:"A highly scalable, event-driven e-commerce backend using the Database-per-Service pattern across Catalog, Basket, Discount and Ordering. Clean Architecture and DDD in Ordering (rich entities, value objects, domain events, EF Core interceptors); CQRS with MediatR, Carter Minimal APIs and pipeline behaviors (FluentValidation, Serilog). gRPC for discount calculation, MassTransit + RabbitMQ for integration events, Redis Cache-Aside, YARP gateway with rate limiting, and 10+ containers via Docker Compose.",t:["Clean Architecture","DDD","CQRS","gRPC","RabbitMQ","Redis","YARP","PostgreSQL (Marten)","Docker"]},
+ {n:"PharmaLink",g:"PharmaLink",d:"An enterprise-grade digital healthcare and supply chain ecosystem connecting 7 system roles using Clean Architecture. Includes a Generative AI & RAG suite (Semantic Kernel, Gemini Vision OCR, Qdrant) for handwritten prescriptions, drug-interaction warnings and prescription auditing, plus a multi-pharmacy order splitting engine using the TSP algorithm and OSRM for optimal delivery routes. Adds predictive inventory forecasting, SignalR reminders and WhatsApp OTP via Whapi.",t:["Clean Architecture","Semantic Kernel","Gemini AI","RAG","Qdrant","TSP","OSRM","SignalR","Hangfire"]}];
+const projects=[
+ {n:"Pulse Chat",g:"PulseChat",d:"Real-time chat backend with user authentication, friend management, group and private messaging via SignalR. Built on ASP.NET Core and EF in a 3-tier architecture, with JWT auth, ASP.NET Identity roles, RESTful APIs and SQL Server.",t:["ASP.NET Core","SignalR","EF Core","JWT","SQL Server"]},
+ {n:"Travel Monster",g:"Travel-Monster",d:"Full-stack tourism booking platform on ASP.NET Core MVC, optimized with Output Caching, with Stripe API payments and Google OAuth 2.0 plus role-based ASP.NET Identity.",t:["MVC","Stripe","OAuth 2.0","Caching","Identity"]},
+ {n:"Task Management System",g:"TaskManagementSystem",d:"Task management API covering users, projects, tasks, comments and activity logging, with JWT authentication, role-based access control (RBAC) and SQL Server in a 3-tier architecture.",t:["ASP.NET Core","REST","RBAC","JWT","EF Core"]},
+ {n:"Library Management System",g:"LibraryMangementSystem",d:"ASP.NET MVC web app managing inventory, members, and borrowing/returning processes, with ASP.NET Identity role-based authorization and responsive Razor Views.",t:["ASP.NET MVC","EF Core","Identity","Razor","SQL Server"]}];
+const exp=[
+ {r:"Competitive Programming AI Trainer",o:"After Query · Remote, USA",p:"04/2025 – 08/2025",b:["Designed and authored advanced algorithmic and data structure problems, applying strict competitive programming standards to train generative AI models.","Developed problem statements, optimal solutions (C++ and C#) and robust test suites to ensure data quality.","Constructed tricky edge cases and specific time/space complexity constraints to rigorously evaluate the AI's logical reasoning."]},
+ {r:"ICPC Community Mentor",o:"ICPC Community",p:"",b:["Mentored university students through technical sessions."]}];
+const nav=["About","Skills","Experience","Projects","Contact"];
+const Reveal=({children,delay=0,className=""})=>{const ref=React.useRef();const [v,setV]=useState(false);React.useEffect(()=>{const o=new IntersectionObserver(([e])=>{if(e.isIntersecting){setV(true);o.disconnect();}},{threshold:.1});o.observe(ref.current);return()=>o.disconnect();},[]);return <div ref={ref} className={className+" reveal"+(v?" in":"")} style={{transitionDelay:delay+"ms"}}>{children}</div>;};
+const Typing=()=>{const w=["Software Engineer","ASP.NET Core & Angular","3× ECPC Finalist"];const [i,setI]=useState(0);const [n,setN]=useState(0);const [del,setDel]=useState(false);
+ React.useEffect(()=>{const cur=w[i];const t=setTimeout(()=>{if(!del&&n<cur.length)setN(n+1);else if(!del)setDel(true);else if(n>0)setN(n-1);else{setDel(false);setI((i+1)%w.length);}},del?35:(n===cur.length?1400:70));return()=>clearTimeout(t);},[n,del,i]);
+ return <p className="rise mt-4 text-xl sm:text-2xl text-slate-300 font-medium h-8" style={{animationDelay:".2s"}}><span className="caret">{w[i].slice(0,n)}</span></p>;};
+const Tag = ({children,big}) => <span className={big ? "px-3.5 py-2 rounded-lg text-sm font-medium border border-sky-400/30 bg-sky-400/10 text-sky-200 hover:bg-sky-400/20 transition" : "px-2.5 py-1 rounded-md text-xs border border-slate-700 bg-slate-800/60 text-slate-300 hover:border-slate-500 transition"}>{children}</span>;
+const Title = ({k,children}) => <Reveal className="mb-10"><div><p className="text-sm tracking-widest uppercase text-sky-400 mb-2">{k}</p><h2 className="text-3xl sm:text-4xl font-bold">{children}</h2></div></Reveal>;
+const Section = ({id,children}) => <section id={id} className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-24">{children}</section>;
+
+function Header(){
+ const [open,setOpen]=useState(false);
+ return <header className="fixed top-0 inset-x-0 z-50 backdrop-blur bg-[#0a0e1a]/80 border-b border-slate-800" style={{paddingTop:"env(safe-area-inset-top,0px)"}}>
+  <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+   <a href="#top" className="font-bold text-lg">Omar<span className="grad"> Hany</span></a>
+   <nav className="hidden md:flex gap-8 text-sm text-slate-400">{nav.map(n=><a key={n} href={"#"+n.toLowerCase()} className="hover:text-white transition">{n}</a>)}</nav>
+   <button className="md:hidden p-2 text-slate-300" aria-label="Menu" onClick={()=>setOpen(!open)}>{open?"✕":"☰"}</button>
+  </div>
+  {open && <nav className="md:hidden px-5 pb-4 flex flex-col gap-3 text-slate-300">{nav.map(n=><a key={n} href={"#"+n.toLowerCase()} onClick={()=>setOpen(false)}>{n}</a>)}</nav>}
+ </header>;
+}
+
+function Hero(){
+ const [toast,setToast]=useState(false);
+ const dl=e=>{ if(!RESUME_URL){e.preventDefault();setToast(true);setTimeout(()=>setToast(false),2800);} };
+ return <div id="top" className="glow pt-16 relative overflow-hidden"><div className="blob bg-sky-400" style={{width:320,height:320,top:"10%",left:"-5%"}}/><div className="blob bg-indigo-500" style={{width:380,height:380,bottom:"0",right:"-8%",animationDelay:"-4s"}}/><div className="relative max-w-6xl mx-auto px-5 sm:px-8 min-h-[92vh] flex flex-col justify-center py-16">
+  <p className="rise inline-flex w-fit items-center gap-2 text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/60 text-slate-300 mb-6"><span className="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>Open to Junior / Mid-level roles</p>
+  <h1 className="rise text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight">Hi, I'm <span className="grad">Omar Hany</span></h1>
+  <Typing/>
+  <p style={{animationDelay:".4s"}} className="rise mt-5 max-w-2xl text-slate-400 leading-relaxed">Software Engineer building scalable, event-driven web applications and RESTful APIs with ASP.NET Core, C#, SQL Server and Angular — with a competitive-programming mindset. 📍 Cairo, Egypt.</p>
+  <div style={{animationDelay:".6s"}} className="rise mt-9 flex flex-wrap gap-4">
+   <a href={RESUME_URL||"#"} onClick={dl} target="_blank" rel="noreferrer" className="px-6 py-3 rounded-lg font-semibold text-slate-900 bg-gradient-to-r from-sky-400 to-indigo-400 hover:opacity-90 hover:-translate-y-0.5 transition">⬇ Download Resume</a>
+   <a href="#projects" className="px-6 py-3 rounded-lg font-semibold border border-slate-600 hover:border-sky-400 hover:text-sky-300 transition">View Projects</a>
+  </div>
+  {toast && <div className="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg bg-slate-800 border border-slate-600 text-sm" style={{marginBottom:"env(safe-area-inset-bottom,0px)"}}>Resume link isn't set yet — add your PDF URL in the code.</div>}
+ </div></div>;
+}
+
+function About(){
+ const cards=[["🎓","B.Sc. Computer Science — Benha University","10/2021 – 07/2025 · GPA 3.12 / 4.00 · Graduation project: VoiSee (Excellent)"],["💻","9-Month Professional Diploma in Web Development — ITI","10/2025 – 08/2026 · Track: Professional Web Development and BI-Infused CRM"],["🏆","ECPC Finalist (3 times)","Egyptian Collegiate Programming Contest — algorithms, data structures and advanced problem solving"],["🌐","Languages","Arabic (Native) · English (Professional Proficiency)"]];
+ return <Section id="about"><Title k="About">Background & Education</Title>
+  <div className="grid md:grid-cols-5 gap-8">
+   <Reveal className="md:col-span-3"><p className="text-slate-300 leading-relaxed text-lg">I'm a Software Engineer specializing in ASP.NET Core, .NET Core, C#, SQL Server and Angular, with experience building scalable web applications, RESTful APIs and event-driven microservices. As a 3-time ECPC Finalist I bring strong problem-solving and competitive programming skills, and I've mentored university students through technical sessions within the ICPC community.</p>
+   <p className="mt-4 text-slate-400 leading-relaxed">I'm seeking to contribute to a dynamic software engineering team by developing efficient, high-performance full-stack solutions.</p>
+   <div className="mt-6 flex flex-wrap gap-3 text-sm"><Tag>📍 Cairo, Egypt</Tag><Tag>🪖 Military Service: Currently Serving</Tag></div></Reveal>
+   <div className="md:col-span-2 space-y-4">
+    {cards.map(([i,a,b],k)=><Reveal key={a} delay={k*120}><div className="card rounded-xl p-4 flex gap-4"><span className="text-2xl">{i}</span><div><p className="font-semibold">{a}</p><p className="text-sm text-slate-400">{b}</p></div></div></Reveal>)}
+   </div>
+  </div></Section>;
+}
+
+const Sub=({l,items})=><div className="mb-5 last:mb-0"><p className="text-xs uppercase tracking-wider text-slate-500 mb-2.5">{l}</p><div className="flex flex-wrap gap-3">{items.map(s=><Tag big key={s}>{s}</Tag>)}</div></div>;
+function Skills(){
+ return <Section id="skills"><Title k="Skills">Technical Skills</Title>
+  <Reveal className="mb-6"><div className="card rounded-2xl p-6 sm:p-8" style={{borderColor:"rgba(56,189,248,.4)"}}>
+   <div className="flex items-center justify-between flex-wrap gap-2 mb-6"><h3 className="text-xl font-bold">Core Stack</h3><span className="text-xs text-sky-300">What I use day-to-day</span></div>
+   <Sub l="Backend" items={backend}/><Sub l="Frontend" items={frontend}/><Sub l="Databases" items={dbs}/>
+  </div></Reveal>
+  <div className="grid md:grid-cols-3 gap-6 mb-6">
+   <Reveal delay={100}><div className="card rounded-2xl p-6"><h3 className="text-lg font-bold mb-4">Programming Languages</h3><div className="flex flex-wrap gap-2.5">{langs.map(s=><Tag big key={s}>{s}</Tag>)}</div></div></Reveal>
+   <Reveal delay={200}><div className="card rounded-2xl p-6"><h3 className="text-lg font-bold mb-4">CS Fundamentals</h3><div className="flex flex-wrap gap-2.5">{cs.map(s=><Tag big key={s}>{s}</Tag>)}</div></div></Reveal>
+   <Reveal delay={300}><div className="card rounded-2xl p-6"><h3 className="text-lg font-bold mb-4">Tools & Deployment</h3><div className="flex flex-wrap gap-2.5">{tools.map(s=><Tag big key={s}>{s}</Tag>)}</div></div></Reveal>
+  </div>
+  <Reveal delay={150}><div className="card rounded-2xl p-6"><h3 className="text-lg font-bold">Familiar With / Applied in Projects</h3><p className="text-xs text-slate-500 mt-1 mb-4">Architecture, messaging and AI tooling I've applied in personal & academic projects</p><div className="flex flex-wrap gap-2">{familiar.map(s=><Tag key={s}>{s}</Tag>)}</div></div></Reveal></Section>;
+}
+
+function Experience(){
+ return <Section id="experience"><Title k="Experience">Where I've Contributed</Title>
+  <div className="space-y-5 border-l border-slate-700 pl-6 sm:pl-8">
+   {exp.map((e,k)=><Reveal key={e.r} delay={k*120} className="relative"><div className="card rounded-xl p-6">
+    <span className="absolute -left-[31px] sm:-left-[39px] top-7 w-3 h-3 rounded-full bg-sky-400 ring-4 ring-[#0a0e1a] pulse-dot"></span>
+    <div className="flex flex-wrap justify-between gap-2"><h3 className="font-bold text-lg">{e.r}</h3>{e.p && <span className="text-sm text-sky-300">{e.p}</span>}</div>
+    <p className="text-sm text-slate-400 mb-3">{e.o}</p>
+    <ul className="space-y-2 text-slate-300 list-disc pl-5">{e.b.map(x=><li key={x}>{x}</li>)}</ul></div></Reveal>)}
+  </div></Section>;
+}
+
+const Repo=({g})=><a href={GH+g} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1.5 mt-auto pt-5 text-sm font-medium text-sky-300 hover:text-white transition">View on GitHub <span className="transition-transform group-hover:translate-x-1">→</span></a>;
+function Projects(){
+ return <Section id="projects"><Title k="Projects">Selected Work</Title>
+  <div className="grid lg:grid-cols-2 gap-6 mb-6">
+   {flagship.map((p,k)=><Reveal key={p.n} delay={k*150}><article className="card flag rounded-2xl p-7 flex flex-col">
+    <span className="w-fit text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-400/15 text-indigo-300 border border-indigo-400/30">★ Flagship</span>
+    <h3 className="text-2xl font-bold mt-4 mb-3">{p.n}</h3><p className="text-slate-300 leading-relaxed mb-5">{p.d}</p>
+    <div className="flex flex-wrap gap-2">{p.t.map(t=><Tag key={t}>{t}</Tag>)}</div><Repo g={p.g}/></article></Reveal>)}
+  </div>
+  <div className="grid md:grid-cols-2 gap-6">
+   {projects.map((p,k)=><Reveal key={p.n} delay={(k%2)*120}><article className="card rounded-xl p-6 flex flex-col"><h3 className="text-lg font-bold mb-2">{p.n}</h3><p className="text-sm text-slate-400 leading-relaxed mb-4">{p.d}</p><div className="flex flex-wrap gap-2">{p.t.map(t=><Tag key={t}>{t}</Tag>)}</div><Repo g={p.g}/></article></Reveal>)}
+  </div></Section>;
+}
+
+function Contact(){
+ const items=[["✉","Email","ohany3051@gmail.com","mailto:ohany3051@gmail.com"],["☎","Phone","+20 1129317507","tel:+201129317507"],["⌥","GitHub","OmarHany10","https://github.com/OmarHany10"],["in","LinkedIn","omar-hany-415417248","https://www.linkedin.com/in/omar-hany-415417248"]];
+ return <Section id="contact"><Title k="Contact">Let's Work Together</Title>
+  <div className="grid sm:grid-cols-2 gap-5">
+   {items.map(([i,l,v,h],k)=><Reveal key={l} delay={k*100}><a href={h} target="_blank" rel="noreferrer" className="card rounded-xl p-5 flex items-center gap-4"><span className="w-11 h-11 shrink-0 rounded-lg bg-sky-400/10 text-sky-300 flex items-center justify-center font-bold">{i}</span><div className="min-w-0"><p className="text-xs text-slate-500">{l}</p><p className="font-medium truncate">{v}</p></div></a></Reveal>)}
+  </div>
+  <p className="text-center text-sm text-slate-500 mt-16">© 2026 Omar Hany · Cairo, Egypt · Built with React & Tailwind CSS</p></Section>;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<><Header/><Hero/><About/><Skills/><Experience/><Projects/><Contact/></>);
+</script>
+</body>
+</html>
